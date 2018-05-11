@@ -1,0 +1,3 @@
+{% for user in item.users %}
+{{ user.username }}@{{ item.domain }}::{{ user.UID }}:{{ user.UID }}::/var/mail/vhosts/{{ item.domain }}/{{ user.username }}
+{% endfor %}

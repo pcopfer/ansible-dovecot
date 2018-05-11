@@ -1,0 +1,28 @@
+---
+- name: Allow IMAPS
+  ufw:
+    rule: allow
+    name: "Dovecot Secure IMAP"
+    from_ip: "{{ item }}"
+    delete: "{% if imaps_public %}no{% else %}yes{% endif %}"
+  with_items:
+   - 192.168.146.0/24
+   - 2a01:4f8:172:102e:192::/80
+  when: dovecot_imapd
+  tags:
+    - ufw
+    - dovecot
+
+- name: Allow IMAP
+  ufw:
+    rule: allow
+    name: "Dovecot IMAP"
+    from_ip: "{{ item }}"
+    delete: "{% if imap_public %}no{% else %}yes{% endif %}"
+  with_items:
+   - 192.168.146.0/24
+   - 2a01:4f8:172:102e:192::/80
+  when: dovecot_imapd
+  tags:
+    - ufw
+    - dovecot

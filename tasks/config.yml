@@ -1,0 +1,142 @@
+---
+- name: Ensure /var/mail/vhosts exist
+  file:
+    path: /var/mail/vhosts
+    state: directory
+  tags:
+    - mail
+    - dovecot
+
+- name: add doveauth user
+  user:
+    name: doveauth
+    system: yes
+    createhome: no
+    shell: "/bin/false"
+  tags:
+    - mail
+    - dovecot
+    - user
+
+- name: Copy Dovecot conf
+  copy:
+    src: "{{ item }}"
+    dest: /etc/dovecot/conf.d/
+    backup: yes
+  with_items:
+    - 10-mail.conf
+    - 10-master.conf
+  notify:
+    - Reload dovecot
+  tags:
+    - copy
+    - mail
+    - dovecot
+
+- name: Copy Dovecot conf
+  copy:
+    src: "{{ item }}"
+    dest: /etc/dovecot/conf.d/
+    backup: yes
+  with_items:
+    - 90-sieve.conf
+  when: dovecot_sieve 
+  notify:
+    - Reload dovecot
+  tags:
+    - copy
+    - mail
+    - dovecot
+ 
+- name: Copy Dovecot auth sql conf
+  template:
+    src: "{{ item }}"
+    dest: /etc/dovecot/
+    backup: yes
+    owner: root
+    group: dovecot
+    mode: 640
+  with_items:
+    - dovecot-sql.conf.ext
+  when: dovecot_auth_pgsql 
+  notify:
+    - Reload dovecot
+  tags:
+    - copy
+    - mail
+    - dovecot
+    - pgsql
+
+- name: Copy Dovecot auth passwd conf
+  copy:
+    src: "{{ item }}"
+    dest: /etc/dovecot/conf.d/
+    backup: yes
+  with_items:
+    - auth-passwdfile.conf.ext
+  when: dovecot_auth_passwdfile 
+  notify:
+    - Reload dovecot
+  tags:
+    - copy
+    - mail
+    - dovecot
+    - pgsql
+
+- name: Template Dovecot conf
+  template:
+    src: "{{ item }}"
+    dest: /etc/dovecot/conf.d/
+  with_items:
+    - 10-auth.conf
+    - 10-ssl.conf
+  notify:
+    - Reload dovecot
+  tags:
+    - mail
+    - dovecot
+
+- name: Template Dovecot lmtp conf
+  template:
+    src: "{{ item }}"
+    dest: /etc/dovecot/conf.d/
+  with_items:
+    - 15-lda.conf
+    - 20-lmtp.conf
+  when: dovecot_lmtpd
+  notify:
+    - Reload dovecot
+  tags:
+    - mail
+    - dovecot
+
+- name: Ensure /var/lib/dovecot/sieve exist
+  file:
+    path: /var/lib/dovecot/sieve
+    state: directory
+  when: dovecot_sieve
+  tags:
+    - mail
+    - dovecot
+
+- name: Copy Sieve default script
+  copy:
+    src: default.sieve
+    dest: /var/lib/dovecot/sieve/default.sieve
+    backup: yes
+    validate: /usr/bin/sievec %s
+  when: dovecot_sieve_defaultscript
+  tags:
+    - copy
+    - mail
+    - dovecot
+    - sieve
+
+- name: Copy backup config for dovecot
+  copy:
+    src: backup_dovecot.conf
+    dest: /root/backuppaths
+  tags:
+    - mail
+    - dovecot
+    - backup

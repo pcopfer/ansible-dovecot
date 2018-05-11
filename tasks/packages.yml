@@ -1,0 +1,67 @@
+---
+- name: Install base packages
+  apt:
+    pkg: "{{ item }}"
+    state: present
+  with_items:
+    - dovecot-dbg
+    - dovecot-core
+  tags:
+    - apt
+    - packages
+    - dovecot
+
+- name: Install lmtpd packages
+  apt:
+    pkg: "{{ item }}"
+    state: present
+  with_items:
+    - dovecot-lmtpd
+  when: dovecot_lmtpd
+  tags:
+    - apt
+    - packages
+    - dovecot
+    - lmtp
+
+- name: Install imapd packages
+  apt:
+    pkg: "{{ item }}"
+    state: present
+  with_items:
+    - dovecot-imapd
+  when: dovecot_imapd
+  tags:
+    - apt
+    - packages
+    - dovecot
+    - imapd
+
+- name: Install sieve packages
+  apt:
+    pkg: "{{ item }}"
+    state: present
+  with_items:
+    - dovecot-sieve
+    - dovecot-managesieved
+  when: dovecot_sieve
+  tags:
+    - apt
+    - packages
+    - dovecot
+    - imapd
+
+
+- name: Install pgsql packages
+  apt:
+    pkg: "{{ item }}"
+    state: present
+  with_items:
+    - dovecot-pgsql
+  when: dovecot_auth_pgsql
+  tags:
+    - apt
+    - packages
+    - dovecot
+    - postgress
+    - pgsql

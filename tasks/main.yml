@@ -1,0 +1,12 @@
+---
+- include: packages.yml
+  become: true
+
+- include: config.yml
+  become: true
+
+- include: users.yml
+  become: true
+
+- include: ufw.yml
+  become: true

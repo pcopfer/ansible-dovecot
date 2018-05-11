@@ -1,0 +1,6 @@
+---
+- name: Reload dovecot
+  service:
+    name: dovecot
+    state: reloaded
+  become: true
