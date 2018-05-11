@@ -6,6 +6,7 @@
   become: true
 
 - include: users.yml
+  when: mailuser is defined
   become: true
 
 - include: ufw.yml

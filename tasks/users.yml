@@ -4,7 +4,6 @@
     path: /var/mail/vhosts/{{ item.domain }}
     state: directory
   with_items: "{{ mailuser }}"
-  when: mailuser is defined
   tags:
     - mail
     - dovecot
@@ -18,7 +17,6 @@
     group: doveauth
     mode: 0700
   with_items: "{{ mailuser }}"
-  when: mailuser is defined
   notify:
     - Reload dovecot
   tags:
@@ -34,7 +32,6 @@
     group: doveauth
     mode: 0700
   with_items: "{{ mailuser }}"
-  when: mailuser is defined
   notify:
     - Reload dovecot
   tags:
@@ -52,7 +49,6 @@
   with_subelements:
     - "{{ mailuser }}"
     - users
-  when: mailuser is defined
   tags:
     - mail
     - dovecot
