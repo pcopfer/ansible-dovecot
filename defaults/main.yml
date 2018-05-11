@@ -1,4 +1,6 @@
 ---
+dovecot_fqdn: "{{ ansible_fqdn }}"
+dovecot_domain: "{{ ansible_domain }}"
 dovecot_auth_passwdfile: true
 dovecot_auth_pgsql: false
 dovecot_imapd: true
@@ -7,3 +9,5 @@ dovecot_sieve: false
 dovecot_sieve_default_script: false
 ufw_imap_public: "{{ dovecot_imapd }}"
 ufw_imaps_public: "{{ dovecot_imapd }}"
+dovecot_cert_path: "/etc/ssl/letsencrypt/certs/{{ postfix_fqdn }}"
+dovecot_postmaster: "postmaster@{{ dovecot_domain }}"
