@@ -125,18 +125,9 @@
     dest: /var/lib/dovecot/sieve/default.sieve
     backup: yes
     validate: /usr/bin/sievec %s
-  when: dovecot_sieve_defaultscript
+  when: dovecot_sieve_default_script
   tags:
     - copy
     - mail
     - dovecot
     - sieve
-
-- name: Copy backup config for dovecot
-  copy:
-    src: backup_dovecot.conf
-    dest: /root/backuppaths
-  tags:
-    - mail
-    - dovecot
-    - backup
