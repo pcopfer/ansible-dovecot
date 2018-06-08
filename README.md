@@ -30,6 +30,9 @@ Example Playbook
                  - username: "test"
                    pass: "{{ mailpw_test_vault }}"
                    UID: 5001
+                 - username: "foo"
+                   hash: "{{ mailpwhash }}"
+                   UID: 5002
       roles:
          - role: pcopfer.dovecot
 
