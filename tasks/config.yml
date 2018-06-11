@@ -33,7 +33,7 @@
     - mail
     - dovecot
 
-- name: Copy Dovecot conf
+- name: Copy Dovecot sieve conf
   copy:
     src: "{{ item }}"
     dest: /etc/dovecot/conf.d/
