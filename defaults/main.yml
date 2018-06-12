@@ -12,3 +12,4 @@ ufw_imaps_public: "{{ dovecot_imapd }}"
 dovecot_cert_path: "/etc/ssl/letsencrypt/certs/{{ postfix_fqdn }}"
 dovecot_postmaster: "postmaster@{{ dovecot_domain }}"
 dovecot_max_userip_connections: 10
+dovecot_auth_mechanisms: "plain login"

@@ -19,6 +19,7 @@ Role Variables
 - ``dovecot_cert_path: "/etc/ssl/letsencrypt/certs/{{ postfix_fqdn }}"`` Path to SSL certs
 - ``dovecot_postmaster: "postmaster@{{ dovecot_domain }}"`` Address of Postmaster (Sender address for error messages)
 - ``dovecot_max_userip_connections: 10`` Numer of parallel connections to imap per user
+- ``dovecot_auth_mechanisms: plain login`` Configure sasl auth mechanisms 
 
 Example Playbook
 ----------------
