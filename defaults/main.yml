@@ -13,3 +13,4 @@ dovecot_cert_path: "/etc/ssl/letsencrypt/certs/{{ postfix_fqdn }}"
 dovecot_postmaster: "postmaster@{{ dovecot_domain }}"
 dovecot_max_userip_connections: 10
 dovecot_auth_mechanisms: "plain login"
+dovecot_imap_idle_notify_interval: "2 mins"

@@ -20,6 +20,7 @@ Role Variables
 - ``dovecot_postmaster: "postmaster@{{ dovecot_domain }}"`` Address of Postmaster (Sender address for error messages)
 - ``dovecot_max_userip_connections: 10`` Numer of parallel connections to imap per user
 - ``dovecot_auth_mechanisms: plain login`` Configure sasl auth mechanisms 
+- ``dovecot_imap_idle_notify_interval: "2 mins"`` Timeout to close IDLE connections without activity
 
 Example Playbook
 ----------------
