@@ -4,7 +4,6 @@
     pkg: "{{ item }}"
     state: present
   with_items:
-    - dovecot-dbg
     - dovecot-core
   tags:
     - apt
