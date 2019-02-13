@@ -1,9 +1,10 @@
 ---
 - name: Install base packages
   apt:
-    pkg: "{{ item }}"
+    name: "{{ packages }}"
     state: present
-  with_items:
+  vars:
+    packages:      
     - dovecot-core
   tags:
     - apt
@@ -12,9 +13,10 @@
 
 - name: Install lmtpd packages
   apt:
-    pkg: "{{ item }}"
+    name: "{{ packages }}"
     state: present
-  with_items:
+  vars:
+    packages:      
     - dovecot-lmtpd
   when: dovecot_lmtpd
   tags:
@@ -25,9 +27,10 @@
 
 - name: Install imapd packages
   apt:
-    pkg: "{{ item }}"
+    name: "{{ packages }}"
     state: present
-  with_items:
+  vars:
+    packages:      
     - dovecot-imapd
   when: dovecot_imapd
   tags:
@@ -38,9 +41,10 @@
 
 - name: Install sieve packages
   apt:
-    pkg: "{{ item }}"
+    name: "{{ packages }}"
     state: present
-  with_items:
+  vars:
+    packages:      
     - dovecot-sieve
     - dovecot-managesieved
   when: dovecot_sieve
@@ -53,9 +57,10 @@
 
 - name: Install pgsql packages
   apt:
-    pkg: "{{ item }}"
+    name: "{{ packages }}"
     state: present
-  with_items:
+  vars:
+    packages:      
     - dovecot-pgsql
   when: dovecot_auth_pgsql
   tags:
