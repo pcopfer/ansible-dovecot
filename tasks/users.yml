@@ -46,6 +46,7 @@
     owner: "{{ item.1.UID }}"
     group: "{{ item.1.UID }}"
     mode: 0700
+  when: item.1.no_mailbox is not defined or item.1.no_mailbox == false
   with_subelements:
     - "{{ mailuser }}"
     - users

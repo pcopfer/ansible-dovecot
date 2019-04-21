@@ -1,3 +1,5 @@
 {% for user in item.users %}
-{{ user.username }}@{{ item.domain }}::{{ user.UID }}:{{ user.UID }}::/var/mail/vhosts/{{ item.domain }}/{{ user.username }}
+{{ user.username }}@{{ item.domain }}::{{ user.UID }}:{{ user.UID }}::{% if user.no_mailbox is not defined or user.no_mailbox == false %}/var/mail/vhosts/{{ item.domain }}/{{ user.username }}
+{% else %}/dev/null
+{% endif %}
 {% endfor %}
